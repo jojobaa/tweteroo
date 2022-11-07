@@ -15,8 +15,23 @@ app.post("/sign-up", (req, res) => {
 })
 
 app.post("/tweets", (req, res) => {
-    tweets.push(req.body);
+    console.log(user)
+    const userAvatar = user.find(info => info.username === req.body.username)?.avatar
+    tweets.push({
+		username: req.body.username,
+		avatar: userAvatar,
+		tweet: req.body.tweet
+	});
     res.send("OK");
+})
+
+app.get("/tweets", (req, res) => {
+  if(tweets.length <= 10){
+    res.send([...tweets].reverse());
+  } else {
+    const lastTweets = tweets.slice(tweets.length - 10, tweets.length).reverse();
+    res.send(lastTweets);
+  }
 })
 
 app.listen(5000);
