@@ -6,4 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.listen(5000)
+const user = [];
+const tweets = [];
+
+app.post("/sign-up", (req, res) => {
+    user.push(req.body);
+    res.send("OK");
+})
+
+app.listen(5000);
